@@ -15,7 +15,7 @@
 
 // Number of iterations for the math task
 // High enough to take a few seconds
-const long long ITERATIONS = 1000000000LL; 
+const long long ITERATIONS = 2500000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 // Pi/4 = 1 - 1/3 + 1/5 - 1/7 + ...
