@@ -11,6 +11,9 @@
  * 
  * This code performs a heavy mathematical computation (Leibniz formula for Pi)
  * to stress the CPU. It measures scaling performance across 4, 8, and 16 threads.
+ *
+ * Compile with: 
+ * g++ -O3 benchmark.cpp -o benchmark -pthread
  */
 
 const long long ITERATIONS = 1000000000LL; 
