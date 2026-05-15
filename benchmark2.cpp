@@ -57,7 +57,7 @@ double run_multi_threaded_test(int num_threads) {
     
     std::cout << std::setw(10) << num_threads << " | " 
               << std::setw(12) << diff.count() << "s | "
-              << "Result: " << std::fixed << std::setprecision(8) << pi << std::endl;
+              << "Result: " << std::fixed << std::setprecision(12) << pi << std::endl;
               
     return diff.count();
 }
