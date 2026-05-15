@@ -16,7 +16,7 @@
  * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
  */
 
-const long long ITERATIONS = 1000000000LL; 
+const long long ITERATIONS = 5000000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 double calculate_pi_partial(long long start, long long end) {
