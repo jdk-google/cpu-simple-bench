@@ -16,7 +16,7 @@
  * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
  */
 
-const long long ITERATIONS = 5000000000LL; 
+const long long ITERATIONS = 6000000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 double calculate_pi_partial(long long start, long long end) {
@@ -85,6 +85,9 @@ int main() {
     double t4 = run_multi_threaded_test(4);
     double t8 = run_multi_threaded_test(8);
     double t16 = run_multi_threaded_test(16);
+    double t24 = run_multi_threaded_test(24);
+    double t32 = run_multi_threaded_test(32);
+    double t48 = run_multi_threaded_test(48);
 
     // 3. Summary Report
     std::cout << "\n--- Speedup Summary ---" << std::endl;
@@ -92,6 +95,9 @@ int main() {
     std::cout << "4 Threads:  " << std::fixed << std::setprecision(2) << t_baseline / t4 << "x speedup" << std::endl;
     std::cout << "8 Threads:  " << t_baseline / t8 << "x speedup" << std::endl;
     std::cout << "16 Threads: " << t_baseline / t16 << "x speedup" << std::endl;
+    std::cout << "24 Threads: " << t_baseline / t24 << "x speedup" << std::endl;
+    std::cout << "32 Threads: " << t_baseline / t32 << "x speedup" << std::endl;
+    std::cout << "48 Threads: " << t_baseline / t48 << "x speedup" << std::endl;
     
     std::cout << "\nNote: Speedup > Hardware Threads indicates Hyper-threading or Turbo Boost influence." << std::endl;
 
