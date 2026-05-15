@@ -11,6 +11,9 @@
  * 
  * This code performs a heavy mathematical computation (Leibniz formula for Pi)
  * to stress the CPU. It measures both single-threaded and multithreaded performance.
+ *
+ * Compile with: 
+ * g++ -O3 benchmark.cpp -o benchmark -pthread
  */
 
 // Number of iterations for the math task
