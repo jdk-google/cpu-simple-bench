@@ -81,12 +81,14 @@ int main() {
     std::cout << "Threads    | Time          | Verification" << std::endl;
     std::cout << "-----------|---------------|-------------------" << std::endl;
     
+    double t2 = run_multi_threaded_test(2);
     double t4 = run_multi_threaded_test(4);
     double t8 = run_multi_threaded_test(8);
     double t16 = run_multi_threaded_test(16);
 
     // 3. Summary Report
     std::cout << "\n--- Speedup Summary ---" << std::endl;
+    std::cout << "2 Threads:  " << std::fixed << std::setprecision(2) << t_baseline / t2 << "x speedup" << std::endl;
     std::cout << "4 Threads:  " << std::fixed << std::setprecision(2) << t_baseline / t4 << "x speedup" << std::endl;
     std::cout << "8 Threads:  " << t_baseline / t8 << "x speedup" << std::endl;
     std::cout << "16 Threads: " << t_baseline / t16 << "x speedup" << std::endl;
