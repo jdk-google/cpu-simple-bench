@@ -8,9 +8,15 @@
 #include <time.h>
 
 double getProcessCpuTime() {
-    struct timespec ts;
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
-    return ts.tv_sec + (ts.tv_nsec / 1000000000.0);
+//    struct timespec ts;
+//    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+//    return ts.tv_sec + (ts.tv_nsec / 1000000000.0);
+
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    
+    // Combine seconds and microseconds into a single double
+    return usage.ru_utime.tv_sec + (usage.ru_utime.tv_usec / 1000000.0);
 }
 
 /**
