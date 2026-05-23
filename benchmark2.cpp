@@ -67,6 +67,7 @@ double run_multi_threaded_test(int num_threads) {
     double pi = std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
     
     std::cout << std::setw(10) << num_threads << " | " 
+              << std::setprecision(6)
               << std::setw(12) << diff.count() << "s | "
               << std::setw(12) << cpu_time_diff << "s | "
               << "Result: " << std::fixed << std::setprecision(12) << pi << std::endl;
