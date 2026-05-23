@@ -61,14 +61,14 @@ double run_multi_threaded_test(int num_threads) {
     auto end_cpu_time = getProcessCpuTime();
 
     std::chrono::duration<double> diff = end_time - start_time;
-    auto cpu_time_diff = end_cpu_time = start_cpu_time;
+    auto cpu_time_diff = end_cpu_time - start_cpu_time;
     
     // Sum is calculated but not printing every time to keep output clean
     double pi = std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
     
     std::cout << std::setw(10) << num_threads << " | " 
               << std::setw(12) << diff.count() << "s | "
-              << std::setw(12) << cpu_time_diff
+              << std::setw(12) << cpu_time_diff << "s | "
               << "Result: " << std::fixed << std::setprecision(12) << pi << std::endl;
               
     return diff.count();
@@ -90,8 +90,8 @@ int main() {
     std::cout << "Baseline Time: " << t_baseline << "s (Pi: " << pi_baseline << ")\n" << std::endl;
 
     // 2. Comparative Benchmarks
-    std::cout << "Threads    | Time          | Verification" << std::endl;
-    std::cout << "-----------|---------------|-------------------" << std::endl;
+    std::cout << "Threads    | Time          | CPU Time      | Verification" << std::endl;
+    std::cout << "-----------|---------------|---------------|-------------------" << std::endl;
     
     double t2 = run_multi_threaded_test(2);
     double t4 = run_multi_threaded_test(4);
