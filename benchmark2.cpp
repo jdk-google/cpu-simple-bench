@@ -6,6 +6,7 @@
 #include <numeric>
 #include <iomanip>
 #include <time.h>
+#include <sys/resource.h>
 
 double getProcessCpuTime() {
 //    struct timespec ts;
