@@ -5,6 +5,13 @@
 #include <cmath>
 #include <numeric>
 #include <iomanip>
+#include <time.h>
+
+double getProcessCpuTime() {
+    struct timespec ts;
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+    return ts.tv_sec + (ts.tv_nsec / 1000000000.0);
+}
 
 /**
  * CPU Benchmark - Performance Test (Multi-Threaded Scaling)
@@ -34,6 +41,7 @@ double run_multi_threaded_test(int num_threads) {
     std::vector<double> results(num_threads);
     
     auto start_time = std::chrono::high_resolution_clock::now();
+    auto start_cpu_time = getProcessCpuTime();
     
     long long chunk_size = ITERATIONS / num_threads;
     for (int i = 0; i < num_threads; ++i) {
@@ -50,13 +58,17 @@ double run_multi_threaded_test(int num_threads) {
     }
 
     auto end_time = std::chrono::high_resolution_clock::now();
+    auto end_cpu_time = getProcessCpuTime();
+
     std::chrono::duration<double> diff = end_time - start_time;
+    auto cpu_time_diff = end_cpu_time = start_cpu_time;
     
     // Sum is calculated but not printing every time to keep output clean
     double pi = std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
     
     std::cout << std::setw(10) << num_threads << " | " 
               << std::setw(12) << diff.count() << "s | "
+              << std::setw(12) << cpu_time_diff <<
               << "Result: " << std::fixed << std::setprecision(12) << pi << std::endl;
               
     return diff.count();
