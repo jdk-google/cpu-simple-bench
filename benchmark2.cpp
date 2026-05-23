@@ -82,13 +82,16 @@ int main() {
     
     // 1. Single-threaded Baseline
     std::cout << "Running Baseline (1 Thread)..." << std::endl;
+    auto start_cpu_time = getProcessCpuTime();
     auto start_baseline = std::chrono::high_resolution_clock::now();
     double pi_baseline = calculate_pi_partial(0, ITERATIONS) * 4.0;
+    auto end_cpu_time = getProcessCpuTime();
     auto end_baseline = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_baseline = end_baseline - start_baseline;
     double t_baseline = diff_baseline.count();
+    double baseline_cpu = end_cpu_time - start_cpu_time;
     
-    std::cout << "Baseline Time: " << t_baseline << "s (Pi: " << pi_baseline << ")\n" << std::endl;
+    std::cout << "Baseline Time: " << t_baseline << "s. CPU_Time " << baseline_cpu << " s(Pi: " << pi_baseline << ")\n" << std::endl;
 
     // 2. Comparative Benchmarks
     std::cout << "Threads    | Time          | CPU Time      | Verification" << std::endl;
