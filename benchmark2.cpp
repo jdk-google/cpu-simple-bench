@@ -8,6 +8,18 @@
 #include <time.h>
 #include <sys/resource.h>
 
+
+/**
+ * CPU Benchmark - Performance Test (Multi-Threaded Scaling)
+ * 
+ * This code performs a heavy mathematical computation (Leibniz formula for Pi)
+ * to stress the CPU. It measures scaling performance across 4, 8, and 16 threads.
+ *
+ * Compile with: 
+ * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
+ */
+
+
 double getProcessCpuTime() {
 //    struct timespec ts;
 //    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
@@ -20,15 +32,6 @@ double getProcessCpuTime() {
     return usage.ru_utime.tv_sec + (usage.ru_utime.tv_usec / 1000000.0);
 }
 
-/**
- * CPU Benchmark - Performance Test (Multi-Threaded Scaling)
- * 
- * This code performs a heavy mathematical computation (Leibniz formula for Pi)
- * to stress the CPU. It measures scaling performance across 4, 8, and 16 threads.
- *
- * Compile with: 
- * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
- */
 
 const long long ITERATIONS = 6000000000LL; 
 
