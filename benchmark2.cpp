@@ -104,6 +104,7 @@ int main() {
     double t24 = run_multi_threaded_test(24);
     double t32 = run_multi_threaded_test(32);
     double t48 = run_multi_threaded_test(48);
+    double t64 = run_multi_threaded_test(64);
 
     // 3. Summary Report
     std::cout << "\n--- Speedup Summary ---" << std::fixed << std::setprecision(2) << std::endl;
@@ -114,6 +115,7 @@ int main() {
     std::cout << "24 Threads: " << t_baseline / t24 << "x speedup" << std::endl;
     std::cout << "32 Threads: " << t_baseline / t32 << "x speedup" << std::endl;
     std::cout << "48 Threads: " << t_baseline / t48 << "x speedup" << std::endl;
+    std::cout << "64 Threads: " << t_baseline / t64 << "x speedup" << std::endl;
     
     std::cout << "\nNote: Speedup > Hardware Threads indicates Hyper-threading or Turbo Boost influence." << std::endl;
 
