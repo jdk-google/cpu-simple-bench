@@ -5,7 +5,7 @@
 #include <cmath>
 #include <numeric>
 #include <iomanip>
-#include <strings.h>
+#include <cstring>
 #include <time.h>
 #include <sys/resource.h>
 #include <omp.h>
@@ -115,13 +115,14 @@ int main(int argc, char* argv[]) {
     std::cout << "OMP reported threads: " << omp_get_max_threads() << "\n";
     if (argc < 2) {
        std::cerr << "Provide a threading mode: pthread or omp. \n"; 
-       return;
+       return 0;
     }
     threading_mode current_mode = none;
-    if (strcomp(argv[1], "pthread") == 0) current_mode = pthread;
-    if (strcomp(argv[1], "imp") == 0) current_mode = omp_mode;
+    if (strcasecomp(argv[1], "pthread") == 0) current_mode = pthread;
+    if (strcasecomp(argv[1], "imp") == 0) current_mode = omp_mode;
     if (current_mode == none) {
        std::cerr << "Mode: " << argv[1] << " not supported \n";
+       return 0;
     }
     
     std::cout << "Iterations: " << ITERATIONS << "\n" << "\n";
