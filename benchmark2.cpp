@@ -85,13 +85,19 @@ double run_multi_threaded_test_core_omp(int num_threads) {
     return std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
 }
 
+enum threading_mode {pthread, omp_mode, none};
+
+
 // Function to run the benchmark with a specific number of threads
-double run_multi_threaded_test(int num_threads) {
+double run_multi_threaded_test(int num_threads, threading_mode current_mode) {
     auto start_time = std::chrono::high_resolution_clock::now();
     auto start_cpu_time = getProcessCpuTime();
 
-    double pi = run_multi_threaded_test_core_omp(num_threads);
-    
+    if (current_mode == omp_mode) {
+      double pi = run_multi_threaded_test_core_omp(num_threads);
+    } else {
+      double pi = run_multi_threaded_test_core_simplethreading(num_threads);
+    }
     auto end_time = std::chrono::high_resolution_clock::now();
     auto end_cpu_time = getProcessCpuTime();
 
@@ -106,8 +112,6 @@ double run_multi_threaded_test(int num_threads) {
               
     return diff.count();
 }
-
-enum threading_mode {pthread, omp_mode, none};
 
 int main(int argc, char* argv[]) {
     std::cout << "--- CPU Scaling Benchmark v8.1 --- \n";
@@ -144,14 +148,14 @@ int main(int argc, char* argv[]) {
     std::cout << "Threads    | Time          | CPU Time      | Verification" << std::endl;
     std::cout << "-----------|---------------|---------------|-------------------" << std::endl;
     
-    double t2 = run_multi_threaded_test(2);
-    double t4 = run_multi_threaded_test(4);
-    double t8 = run_multi_threaded_test(8);
-    double t16 = run_multi_threaded_test(16);
-    double t24 = run_multi_threaded_test(24);
-    double t32 = run_multi_threaded_test(32);
-    double t48 = run_multi_threaded_test(48);
-    double t64 = run_multi_threaded_test(64);
+    double t2 = run_multi_threaded_test(2, current_mode);
+    double t4 = run_multi_threaded_test(4, current_mode);
+    double t8 = run_multi_threaded_test(8, current_mode);
+    double t16 = run_multi_threaded_test(16, current_mode);
+    double t24 = run_multi_threaded_test(24, current_mode);
+    double t32 = run_multi_threaded_test(32, current_mode);
+    double t48 = run_multi_threaded_test(48, current_mode);
+    double t64 = run_multi_threaded_test(64, current_mode);
 
     // 3. Summary Report
     std::cout << "\n--- Speedup Summary ---" << std::fixed << std::setprecision(2) << std::endl;
