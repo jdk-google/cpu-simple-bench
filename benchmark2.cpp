@@ -75,9 +75,9 @@ double run_multi_threaded_test_core_omp(int num_threads) {
     long long chunk_size = ITERATIONS / num_chunks;
 
     #pragma omp parallel for num_threads(num_threads)  schedule (dynamic, 1)
-    for (int i = 0; i < num_threads; ++i) {
+    for (int i = 0; i < num_chunks; ++i) {
         long long start = i * chunk_size;
-        long long end = (i == num_threads - 1) ? ITERATIONS : (i + 1) * chunk_size;
+        long long end = (i == num_chunks - 1) ? ITERATIONS : (i + 1) * chunk_size;
         
         results[i] = calculate_pi_partial(start, end);
     }
