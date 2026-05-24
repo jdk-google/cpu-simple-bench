@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <time.h>
 #include <sys/resource.h>
+#include <omp.h>
 
 
 /**
@@ -45,14 +46,9 @@ double calculate_pi_partial(long long start, long long end) {
     return sum;
 }
 
-// Function to run the benchmark with a specific number of threads
-double run_multi_threaded_test(int num_threads) {
-    std::vector<std::thread> threads;
+
+double run_multi_threaded_test_core_simplethreading() {
     std::vector<double> results(num_threads);
-    
-    auto start_time = std::chrono::high_resolution_clock::now();
-    auto start_cpu_time = getProcessCpuTime();
-    
     long long chunk_size = ITERATIONS / num_threads;
     for (int i = 0; i < num_threads; ++i) {
         long long start = i * chunk_size;
@@ -67,14 +63,24 @@ double run_multi_threaded_test(int num_threads) {
         t.join();
     }
 
+    // Sum is calculated but not printing every time to keep output clean
+    return std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
+}
+
+// Function to run the benchmark with a specific number of threads
+double run_multi_threaded_test(int num_threads) {
+    std::vector<std::thread> threads;
+    
+    auto start_time = std::chrono::high_resolution_clock::now();
+    auto start_cpu_time = getProcessCpuTime();
+
+    double pi = run_multi_threaded_test_core_simplethreading(num_threads);
+    
     auto end_time = std::chrono::high_resolution_clock::now();
     auto end_cpu_time = getProcessCpuTime();
 
     std::chrono::duration<double> diff = end_time - start_time;
     auto cpu_time_diff = end_cpu_time - start_cpu_time;
-    
-    // Sum is calculated but not printing every time to keep output clean
-    double pi = std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
     
     std::cout << std::setw(10) << num_threads << " | " 
               << std::setprecision(6)
