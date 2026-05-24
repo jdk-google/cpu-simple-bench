@@ -34,7 +34,7 @@ double getProcessCpuTime() {
 }
 
 
-const long long ITERATIONS = 8000000000LL; 
+const long long ITERATIONS = 2000000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 double calculate_pi_partial(long long start, long long end) {
@@ -111,6 +111,7 @@ double run_multi_threaded_test(int num_threads) {
 int main() {
     std::cout << "--- CPU Scaling Benchmark ---" << std::endl;
     std::cout << "Hardware Threads Available: " << std::thread::hardware_concurrency() << std::endl;
+    std::cout << "OMP reported threads: " << omp_get_max_threads() << std::endl;
     std::cout << "Iterations: " << ITERATIONS << "\n" << std::endl;
     
     // 1. Single-threaded Baseline
