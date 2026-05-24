@@ -72,7 +72,7 @@ double run_multi_threaded_test_core_omp(int num_threads) {
     long long chunk_size = ITERATIONS / num_chunks;
 
     #pragma omp parallel for \
-            default(none) shared (results, chunk_size, num_chunks) \ 
+            default(none) shared (results, chunk_size, num_chunks) \
             num_threads(num_threads)  schedule (dynamic, 1)
     for (int i = 0; i < num_chunks; ++i) {
         long long start = i * chunk_size;
