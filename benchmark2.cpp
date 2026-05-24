@@ -18,6 +18,7 @@
  *
  * Compile with: 
  * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
+ * g++ -O3 benchmark2.cpp -o benchmark2 -fopenmp
  */
 
 
@@ -34,7 +35,7 @@ double getProcessCpuTime() {
 }
 
 
-const long long ITERATIONS = 2000000000LL; 
+const long long ITERATIONS = 8000000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 double calculate_pi_partial(long long start, long long end) {
