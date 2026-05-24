@@ -153,7 +153,5 @@ int main() {
     std::cout << "48 Threads: " << t_baseline / t48 << "x speedup" << std::endl;
     std::cout << "64 Threads: " << t_baseline / t64 << "x speedup" << std::endl;
     
-    std::cout << "\nNote: Speedup > Hardware Threads indicates Hyper-threading or Turbo Boost influence." << std::endl;
-
     return 0;
 }
