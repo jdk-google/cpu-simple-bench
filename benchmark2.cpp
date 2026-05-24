@@ -125,11 +125,11 @@ int main(int argc, char* argv[]) {
     threading_mode current_mode = none;
     if (strcasecmp(argv[1], "pthread") == 0) {
       current_mode = pthread;
-      std::cout << "Running in pthread mode \n.";
+      std::cout << "Running in pthread mode. \n";
     }
     if (strcasecmp(argv[1], "omp") == 0) { 
       current_mode = omp_mode;
-      std::cout << "Running in omp mode \n.";
+      std::cout << "Running in omp mode. \n";
     }
     if (current_mode == none) {
        std::cerr << "Mode: " << argv[1] << " not supported \n";
