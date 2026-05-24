@@ -70,7 +70,7 @@ double run_multi_threaded_test_core_simplethreading(int num_threads) {
 }
 
 double run_multi_threaded_test_core_omp(int num_threads) {
-    num_chunks = 256;
+    const int num_chunks = 256;
     std::vector<double> results(num_chunks);
     long long chunk_size = ITERATIONS / num_chunks;
 
