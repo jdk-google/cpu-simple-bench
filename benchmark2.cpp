@@ -17,8 +17,7 @@
  * to stress the CPU. It measures scaling performance across 4, 8, and 16 threads.
  *
  * Compile with: 
- * g++ -O3 benchmark2.cpp -o benchmark2 -pthread
- * g++ -O3 benchmark2.cpp -o benchmark2 -fopenmp
+ * g++ -O3 benchmark2.cpp -o benchmark2 -pthread -fopenmp
  */
 
 
