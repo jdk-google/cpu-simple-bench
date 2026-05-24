@@ -69,12 +69,29 @@ double run_multi_threaded_test_core_simplethreading(int num_threads) {
     return std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
 }
 
+double run_multi_threaded_test_core_omp(int num_threads) {
+    num_chunks = 256;
+    std::vector<double> results(num_chunks);
+    long long chunk_size = ITERATIONS / num_chunks;
+
+    #pragma omp parallel share (results) default (none) for num_threads(num_threads)  schedule (dynamic, 1)
+    for (int i = 0; i < num_threads; ++i) {
+        long long start = i * chunk_size;
+        long long end = (i == num_threads - 1) ? ITERATIONS : (i + 1) * chunk_size;
+        
+        results[i] = calculate_pi_partial(start, end);
+    }
+
+    // Sum is calculated but not printing every time to keep output clean
+    return std::accumulate(results.begin(), results.end(), 0.0) * 4.0;
+}
+
 // Function to run the benchmark with a specific number of threads
 double run_multi_threaded_test(int num_threads) {
     auto start_time = std::chrono::high_resolution_clock::now();
     auto start_cpu_time = getProcessCpuTime();
 
-    double pi = run_multi_threaded_test_core_simplethreading(num_threads);
+    double pi = run_multi_threaded_test_core_omp(num_threads);
     
     auto end_time = std::chrono::high_resolution_clock::now();
     auto end_cpu_time = getProcessCpuTime();
