@@ -111,7 +111,7 @@ double run_multi_threaded_test(int num_threads) {
 }
 
 int main() {
-    std::cout << "--- CPU Scaling Benchmark v8.0 --- \n";
+    std::cout << "--- CPU Scaling Benchmark v8.1 --- \n";
     std::cout << "Hardware Threads Available: " << std::thread::hardware_concurrency() << "\n";
     std::cout << "OMP reported threads: " << omp_get_max_threads() << "\n";
     std::cout << "Iterations: " << ITERATIONS << "\n" << "\n";
