@@ -34,7 +34,7 @@ double getProcessCpuTime() {
 }
 
 
-const long long ITERATIONS = 6000000000LL; 
+const long long ITERATIONS = 8000000000LL; 
 
 // The mathematical task: Calculate Pi using Leibniz series
 double calculate_pi_partial(long long start, long long end) {
@@ -48,6 +48,8 @@ double calculate_pi_partial(long long start, long long end) {
 
 
 double run_multi_threaded_test_core_simplethreading(int num_threads) {
+    std::vector<std::thread> threads;
+    
     std::vector<double> results(num_threads);
     long long chunk_size = ITERATIONS / num_threads;
     for (int i = 0; i < num_threads; ++i) {
@@ -69,8 +71,6 @@ double run_multi_threaded_test_core_simplethreading(int num_threads) {
 
 // Function to run the benchmark with a specific number of threads
 double run_multi_threaded_test(int num_threads) {
-    std::vector<std::thread> threads;
-    
     auto start_time = std::chrono::high_resolution_clock::now();
     auto start_cpu_time = getProcessCpuTime();
 
