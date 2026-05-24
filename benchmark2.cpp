@@ -47,7 +47,7 @@ double calculate_pi_partial(long long start, long long end) {
 }
 
 
-double run_multi_threaded_test_core_simplethreading() {
+double run_multi_threaded_test_core_simplethreading(int num_threads) {
     std::vector<double> results(num_threads);
     long long chunk_size = ITERATIONS / num_threads;
     for (int i = 0; i < num_threads; ++i) {
