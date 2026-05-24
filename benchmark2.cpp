@@ -92,11 +92,12 @@ enum threading_mode {pthread, omp_mode, none};
 double run_multi_threaded_test(int num_threads, threading_mode current_mode) {
     auto start_time = std::chrono::high_resolution_clock::now();
     auto start_cpu_time = getProcessCpuTime();
+    double pi = 0;
 
     if (current_mode == omp_mode) {
-      double pi = run_multi_threaded_test_core_omp(num_threads);
+      pi = run_multi_threaded_test_core_omp(num_threads);
     } else {
-      double pi = run_multi_threaded_test_core_simplethreading(num_threads);
+      pi = run_multi_threaded_test_core_simplethreading(num_threads);
     }
     auto end_time = std::chrono::high_resolution_clock::now();
     auto end_cpu_time = getProcessCpuTime();
@@ -108,7 +109,7 @@ double run_multi_threaded_test(int num_threads, threading_mode current_mode) {
               << std::setprecision(6)
               << std::setw(12) << diff.count() << "s | "
               << std::setw(12) << cpu_time_diff << "s | "
-              << "Result: " << std::fixed << std::setprecision(12) << pi << std::endl;
+              << "Result: " << std::fixed << std::setprecision(12) << pi << "\n";
               
     return diff.count();
 }
