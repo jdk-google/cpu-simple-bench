@@ -5,6 +5,7 @@
 #include <cmath>
 #include <numeric>
 #include <iomanip>
+#include <strings.h>
 #include <time.h>
 #include <sys/resource.h>
 #include <omp.h>
@@ -28,11 +29,8 @@ double getProcessCpuTime() {
 
     struct rusage usage;
     getrusage(RUSAGE_SELF, &usage);
-    
-    // Combine seconds and microseconds into a single double
     return usage.ru_utime.tv_sec + (usage.ru_utime.tv_usec / 1000000.0);
 }
-
 
 const long long ITERATIONS = 8000000000LL; 
 
@@ -45,7 +43,6 @@ double calculate_pi_partial(long long start, long long end) {
     }
     return sum;
 }
-
 
 double run_multi_threaded_test_core_simplethreading(int num_threads) {
     std::vector<std::thread> threads;
@@ -110,10 +107,23 @@ double run_multi_threaded_test(int num_threads) {
     return diff.count();
 }
 
-int main() {
+enum threading_mode {pthread, omp, none};
+
+int main(int argc, char* argv[]) {
     std::cout << "--- CPU Scaling Benchmark v8.1 --- \n";
     std::cout << "Hardware Threads Available: " << std::thread::hardware_concurrency() << "\n";
     std::cout << "OMP reported threads: " << omp_get_max_threads() << "\n";
+    if (argc < 2) {
+       std::err << "Provide a threading mode: pthread or omp. \n"; 
+       return;
+    }
+    threading_mode current_mode = none;
+    if (strcomp(argv[1], "pthread") == 0) current_mode = pthread;
+    if (strcomp(argv[1], "imp") == 0) current_mode = omp;
+    if current_mode == none {
+       std::err << "Mode: " << argv[1] << " not supported \n";
+    }
+    
     std::cout << "Iterations: " << ITERATIONS << "\n" << "\n";
     
     // 1. Single-threaded Baseline
