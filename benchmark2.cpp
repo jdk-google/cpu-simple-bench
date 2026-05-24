@@ -107,21 +107,21 @@ double run_multi_threaded_test(int num_threads) {
     return diff.count();
 }
 
-enum threading_mode {pthread, omp, none};
+enum threading_mode {pthread, omp_mode, none};
 
 int main(int argc, char* argv[]) {
     std::cout << "--- CPU Scaling Benchmark v8.1 --- \n";
     std::cout << "Hardware Threads Available: " << std::thread::hardware_concurrency() << "\n";
     std::cout << "OMP reported threads: " << omp_get_max_threads() << "\n";
     if (argc < 2) {
-       std::err << "Provide a threading mode: pthread or omp. \n"; 
+       std::cerr << "Provide a threading mode: pthread or omp. \n"; 
        return;
     }
     threading_mode current_mode = none;
     if (strcomp(argv[1], "pthread") == 0) current_mode = pthread;
-    if (strcomp(argv[1], "imp") == 0) current_mode = omp;
+    if (strcomp(argv[1], "imp") == 0) current_mode = omp_mode;
     if current_mode == none {
-       std::err << "Mode: " << argv[1] << " not supported \n";
+       std::cerr << "Mode: " << argv[1] << " not supported \n";
     }
     
     std::cout << "Iterations: " << ITERATIONS << "\n" << "\n";
